@@ -1,3 +1,6 @@
+# Simplotel
+<img src="https://github.com/Reshavji/Jstigers/blob/main/Screenshot%202024-01-20%20175522.png" alt="First image" />
+<img src="https://github.com/Reshavji/Jstigers/blob/main/Screenshot%202024-01-20%20175311.png" alt="Second image" />
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
