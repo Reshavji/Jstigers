@@ -23,8 +23,6 @@ const Home = () => {
       marginBottom: '20px',
     },
     item: {
-     
-      borderRadius: '10px',
       padding: '20px',
       boxShadow: '0 2px 4px rgba(0, 0, 0, 0.5)', 
       marginBottom: '20px', 
