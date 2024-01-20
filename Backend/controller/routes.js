@@ -96,7 +96,7 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
     const csrfToken = req.csrfToken();
-    res.redirect('http://localhost:3000/home');
+    res.redirect('https://jstigers-4q87.vercel.app/home');
 });
 
 router.get('/users', checkAuth, (req, res) => {
