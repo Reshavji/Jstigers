@@ -86,15 +86,11 @@ router.put('/vendors/:id', async (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-    if (req.isAuthenticated()) {
-        req.logout();
-        req.session.destroy(function (err) {
-            res.redirect('https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:9000/');
-        });
-    } else {
-        res.redirect('/');
-    }
+    req.logout();
+    // Redirect to the home page
+    res.redirect('http://localhost:3000/');
 });
+
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
