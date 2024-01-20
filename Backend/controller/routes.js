@@ -7,6 +7,13 @@ require('./googleAuth')(passport);
 const userRoutes = require('./accountRoutes');
 const cors = require('cors');
 const { Vendor, db } = require('../model/vendors');
+
+router.use(require('express-session')({ secret: 'your-secret-key', resave: false, saveUninitialized: true }));
+
+// Initialize csurf middleware after setting up session middleware
+const csrfProtection = csrf({ cookie: true });
+router.use(csrfProtection);
+
 function checkAuth(req, res, next) {
     if (req.isAuthenticated()) {
         res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, post-check=0, pre-check=0');
@@ -18,6 +25,7 @@ function checkAuth(req, res, next) {
 }
 
 router.use(cors());
+
 // Route to save vendor data
 router.post('/vendors', async (req, res) => {
     try {
@@ -94,6 +102,7 @@ router.get('/logout', (req, res) => {
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email',] }));
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+    const csrfToken = req.csrfToken();
     res.redirect('http://localhost:3000/home');
 });
 
