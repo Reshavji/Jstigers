@@ -7,6 +7,7 @@ import {
   TableCell,
   IconButton,
   Snackbar,
+  TablePagination,
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -24,6 +25,10 @@ const VendorList = () => {
     message: '',
     severity: 'success', // Can be 'success', 'error', 'warning', 'info'
   });
+
+  // Pagination state
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -129,6 +134,17 @@ const VendorList = () => {
     setSnackbar({ ...snackbar, open: false });
   };
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const slicedVendors = vendors.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
   return (
     <>
       <Table>
@@ -141,7 +157,7 @@ const VendorList = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {vendors.map((vendor) => (
+          {slicedVendors.map((vendor) => (
             <TableRow key={vendor._id}>
               <TableCell>{vendor.vendorName}</TableCell>
               <TableCell>{vendor.bankAccountNo}</TableCell>
@@ -158,6 +174,16 @@ const VendorList = () => {
           ))}
         </TableBody>
       </Table>
+
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={vendors.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
 
       <EditVendorPopup
         open={editPopupOpen}
