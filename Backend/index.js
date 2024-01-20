@@ -5,6 +5,7 @@ const expressSession = require('express-session');
 const MemoryStore = require('memorystore')(expressSession)
 const passport = require('passport');
 const flash = require('connect-flash');
+const path = require('path');
 const cors = require('cors');
 const app = express();
 app.use(cors());
