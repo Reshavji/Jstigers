@@ -11,8 +11,6 @@ const { Vendor } = require('../model/vendors');
 
 router.use(require('express-session')({ secret: 'your-secret-key', resave: false, saveUninitialized: true }));
 
-const csrfProtection = csrf({ cookie: true });
-router.use(csrfProtection);
 
 function checkAuth(req, res, next) {
     if (req.isAuthenticated()) {
@@ -95,7 +93,6 @@ router.get('/logout', (req, res) => {
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-    const csrfToken = req.csrfToken();
     res.redirect('https://jstigers-4q87.vercel.app/home');
 });
 
